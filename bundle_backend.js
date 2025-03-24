@@ -2,8 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 10000;
 // Enable CORS for your Vercel frontend
 app.use(cors({
     origin: "https://bingwa-sokoni.vercel.app",
@@ -42,4 +41,6 @@ app.post('/purchase', (req, res) => {
     res.json({ message: `Purchase successful for ${bundle.name} on ${phoneNumber}` });
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
