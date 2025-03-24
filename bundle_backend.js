@@ -42,8 +42,17 @@ const smsOffers = [
     { id: 17, name: '20 SMS', price: 5, validity: '24 Hours' }
 ];
 
+// Define separate endpoints for each category
 app.get('/bundles', (req, res) => {
-    res.json({ dataBundles, minutes, smsOffers });
+    res.json(dataBundles);
+});
+
+app.get('/minutes', (req, res) => {
+    res.json(minutes);
+});
+
+app.get('/sms', (req, res) => {
+    res.json(smsOffers);
 });
 
 app.post('/purchase', (req, res) => {
