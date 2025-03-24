@@ -1,9 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "bundle_backend.js",
   "scripts": {
-    "start": "node server.js & node bundle_backend.js"
+    "start": "node bundle_backend.js"
   },
   "dependencies": {
     "express": "^4.18.2",
