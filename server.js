@@ -43,25 +43,21 @@ app.post('/mpesa-payment', async (req, res) => {
         const timestamp = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 14);
 
         // Generate STK push password
-        const password = Buffer.from(`${TILL_NUMBER}${PASSKEY}${timestamp}`).toString("base64");
+        const password = ""; // No passkey needed for till number payments
 
-        const requestData = {
-            BusinessShortCode: TILL_NUMBER,
-            Password: password,
-            Timestamp: timestamp,
-            TransactionType: "CustomerPayBillOnline",
-            Amount: amount,
-            PartyA: phoneNumber,
-            PartyB: TILL_NUMBER,
-            PhoneNumber: phoneNumber,
-            CallBackURL: CALLBACK_URL,
-            AccountReference: "BundlePurchase",
-            TransactionDesc: "Buying data bundles"
-        };
+       const requestData = {
+    ShortCode: TILL_NUMBER,
+    CommandID: "CustomerBuyGoodsOnline",
+    Amount: amount,
+    Msisdn: phoneNumber,
+    BillRefNumber: "BundlePurchase"
+};
+
 
         console.log("Sending STK Push Request:", requestData);
 
-        const response = await axios.post('https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest', requestData, {
+       const response = await axios.post('https://api.safaricom.co.ke/mpesa/c2b/v1/simulate', requestData, {
+
             headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
         });
 
@@ -74,6 +70,3 @@ app.post('/mpesa-payment', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-app.get('/test', (req, res) => {
-    res.json({ message: "Backend is running!" });
-});
