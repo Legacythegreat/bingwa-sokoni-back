@@ -2,7 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
+
 // Enable CORS for your Vercel frontend
 app.use(cors({
     origin: "https://bingwa-sokoni.vercel.app",
