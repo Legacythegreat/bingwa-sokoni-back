@@ -74,3 +74,6 @@ app.post('/mpesa-payment', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get('/test', (req, res) => {
+    res.json({ message: "Backend is running!" });
+});
