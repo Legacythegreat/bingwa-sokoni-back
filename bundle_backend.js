@@ -1,6 +1,7 @@
 // Backend: server.js (Node.js with Express)
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -12,6 +13,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// MPesa Backend URL
+const MPESA_BACKEND_URL = "https://mpesa-kme1.onrender.com/mpesa-payment";
 
 // Data Bundles
 const dataBundles = [
@@ -55,14 +59,30 @@ app.get('/sms', (req, res) => {
     res.json(smsOffers);
 });
 
-app.post('/purchase', (req, res) => {
+// Purchase API with MPesa Integration
+app.post('/purchase', async (req, res) => {
     const { bundleId, phoneNumber } = req.body;
     const allProducts = [...dataBundles, ...minutes, ...smsOffers];
     const bundle = allProducts.find(b => b.id === bundleId);
     if (!bundle) {
         return res.status(404).json({ message: 'Bundle not found' });
     }
-    res.json({ message: `Purchase successful for ${bundle.name} on ${phoneNumber}` });
+
+    try {
+        // Trigger MPesa payment
+        const mpesaResponse = await axios.post(MPESA_BACKEND_URL, {
+            phoneNumber,
+            amount: bundle.price
+        });
+
+        res.json({ 
+            message: `MPesa payment initiated for ${bundle.name}, check your phone!`,
+            mpesaResponse: mpesaResponse.data 
+        });
+    } catch (error) {
+        console.error("Error processing MPesa payment:", error.response?.data || error.message);
+        res.status(500).json({ message: "Failed to initiate MPesa payment", error: error.response?.data || error.message });
+    }
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
