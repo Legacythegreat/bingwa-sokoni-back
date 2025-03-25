@@ -20,7 +20,7 @@ const dataBundles = [
     { id: 2, name: '1.25GB', price: 55, validity: 'Till Midnight' },
     { id: 3, name: '350MB', price: 49, validity: '7 Days' },
     { id: 4, name: '1GB', price: 19, validity: '1 Hour' },
-    { id: 5, name: '1.6GB', price: 99, validity: '24 Hours' },
+    { id: 5, name: '1GB', price: 99, validity: '24 Hours' },
     { id: 6, name: '250MB', price: 20, validity: '24 Hours' }
 ];
 
