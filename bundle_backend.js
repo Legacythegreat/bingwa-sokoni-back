@@ -26,12 +26,7 @@ const dataBundles = [
 
 // Minutes
 const minutes = [
-    { id: 7, name: '200 MINS', price: 250, validity: '7 Days' },
-    { id: 8, name: '100 MINS', price: 100, validity: '2 Days' },
-    { id: 9, name: '50 MINS', price: 51, validity: 'Till Midnight' },
-    { id: 10, name: '50 Talktime', price: 21, validity: 'Till Midnight' },
-    { id: 11, name: '34 MINS', price: 22, validity: '1 Hour' },
-    { id: 12, name: '800 MINS', price: 1000, validity: '30 Days' }
+    { id: 11, name: '45 MINS', price: 22, validity: '3 Hour' },
 ];
 
 // SMS Offers
